@@ -10,7 +10,7 @@ import (
 )
 
 func jsonInfo(url string) models.Info {
-	res, err := http.Get("https://ipv4.ipleak.net/json/")
+	res, err := http.Get(url)
 	if err != nil {
 		panic(err)
 	}
@@ -32,8 +32,8 @@ func jsonInfo(url string) models.Info {
 func Handler(w http.ResponseWriter, r *http.Request) {
 	ipInfo := jsonInfo("https://ipv4.ipleak.net/json/")
 
-	randomString := utils.RandStringBytesMaskImprSrc()
-	dnsURL := fmt.Sprintf("https://%ss.ipleak.net/json/", randomString)
+	randomString := utils.RandomString()
+	dnsURL := fmt.Sprintf("https://%s.ipleak.net/json/", randomString)
 	dnsInfo := jsonInfo(dnsURL)
 
 	response := models.Response{
